@@ -32,4 +32,6 @@ $string['update_course'] = 'Update Course';
 $string['delete_course'] = 'Delete Course';
 $string['course_image'] = 'Course Image';
 $string['course_name'] = 'Course Name';
-$string['course_date'] = 'Date Created';
+$string['date_created'] = 'Date Created';
+$string['actions'] = 'Actions';
+

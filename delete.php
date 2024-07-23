@@ -15,35 +15,31 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Capability definitions for Final Assignment
- *
- * Documentation: {@link https://moodledev.io/docs/apis/subsystems/access}
+ * TODO describe file delete
  *
  * @package    local_final
- * @category   access
  * @copyright  2024 Anya <anyama679@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+require('../../config.php');
 
-$capabilities = [
-    'local/final:viewcourses' => [
-        'captype' => 'read',
-        'context level' => CONTEXT_SYSTEM,
-        'archetypes' => [
-            'student' => CAP_ALLOW,
-            'teacher' => CAP_ALLOW,
-            'manager' => CAP_ALLOW,
-            'guest' => CAP_PREVENT,
-        ],
-    ],
-    'local/final:managecourses' => [
-        'captype' => 'write',
-        'contextlevel' => CONTEXT_SYSTEM,
-        'archetypes' => [
-            'manager' => CAP_ALLOW,
-            'admin' => CAP_ALLOW,
-        ],    
-    ],
-];
+$id = optional_param('id', 0, PARAM_INT);
+$context = context_system::instance();
+require_login();
+
+if (!has_capability('local/final:managecourses', $context)) {
+    throw new moodle_exception('You cannot access this page');
+}
+
+// Check if the course ID is valid
+if ($id <= 0) {
+    throw new moodle_exception('invalidcourseid', 'local_final');
+}
+
+$course = $DB->get_record('course', ['id' => $id], '*', MUST_EXIST);
+
+$course->visible = !$course->visible;
+$DB->update_record('course', $course);
+
+redirect(new moodle_url('/local/final/view.php'), get_string('course_visibility_updated', 'local_final'));

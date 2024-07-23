@@ -53,35 +53,32 @@ if ($managecourse) {
 }
 
     global $DB;
-    $sql = "SELECT m.id, m.image, m.name, m.datecreated
-            FROM {local_final_courses} m
-            where m.visible = 1
-            ORDER BY m.datecreated DESC";
+    $sql = "SELECT c.id, c.fullname AS name, c.timecreated AS datecreated
+            FROM {course} c
+            WHERE c.visible = 1
+            ORDER BY c.timecreated DESC";
 
     $courses = $DB->get_records_sql($sql);
-    if (empty($courses)) {
-        echo html_writer::tag('p', 'No courses available.');
-    }
-    
     
     echo html_writer::start_tag('table', ['class' => 'generaltable']);
     echo html_writer::start_tag('thead');
     echo html_writer::tag('tr', 
         html_writer::tag('th', '#') .
-        html_writer::tag('th', 'Course Image') .
-        html_writer::tag('th', 'Course Name') .
-        html_writer::tag('th', 'Date Created') .
-        html_writer::tag('th', 'Actions')
+        html_writer::tag('th', get_string('course_image', 'local_final')) .
+        html_writer::tag('th', get_string('course_name', 'local_final')) .
+        html_writer::tag('th', get_string('date_created', 'local_final')) .
+        html_writer::tag('th', get_string('actions', 'local_final'))
     );
     echo html_writer::end_tag('thead');
     echo html_writer::start_tag('tbody');
 
     foreach ($courses as $course) {
-        $courseimage = $course->image ? $course->image : $OUTPUT->image_url('course', 'moodle');
-
+        $courseimageurl = $OUTPUT->image_url('course', 'moodle');
+        $courseimage = html_writer::img($courseimageurl, get_string('course_image', 'local_final'), ['width' => 100]);
+    
         echo html_writer::start_tag('tr');
         echo html_writer::tag('td', $course->id);
-        echo html_writer::tag('td', html_writer::img($courseimage, get_string('course_image', 'local_final'), ['width' => 100]));
+        echo html_writer::tag('td', $courseimage);
         echo html_writer::tag('td', html_writer::link(new moodle_url('/course/view.php', ['id' => $course->id]),
         $course->name));
         echo html_writer::tag('td', userdate($course->datecreated));
@@ -97,7 +94,9 @@ if ($managecourse) {
                 html_writer::empty_tag('button', ['type' => 'submit', 'class' => 'btn btn-delete', 'title' => get_string(
                     'delete_course', 'local_final'), 'name' => 'delete',
                     'text' => get_string('delete_course', 'local_final')]) .
-                html_writer::end_tag('form')
+                html_writer::end_tag('form') .
+                html_writer::link(new moodle_url('/local/final/delete.php', ['id' => $course->id]), get_string('delete_course',
+                'local_final'), ['class' => 'btn btn-delete', 'title' => get_string('delete_course', 'local_final')])
             ) : ''
         );
         echo html_writer::end_tag('tr');
