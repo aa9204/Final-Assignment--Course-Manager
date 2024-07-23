@@ -30,19 +30,22 @@ defined('MOODLE_INTERNAL') || die();
 $capabilities = [
     'local/final:viewcourses' => [
         'captype' => 'read',
-        'context level' => CONTEXT_SYSTEM,
+        'context level' => CONTEXT_COURSE,
         'archetypes' => [
             'student' => CAP_ALLOW,
             'teacher' => CAP_ALLOW,
             'manager' => CAP_ALLOW,
         ],
+        
+        'clonepermissionsfrom' => 'moodle/site:manageblocks'
     ],
     'local/final:managecourses' => [
         'captype' => 'write',
         'contextlevel' => CONTEXT_SYSTEM,
         'archetypes' => [
             'manager' => CAP_ALLOW,
-
         ],
+        
+        'clonepermissionsfrom' => 'moodle/site:manageblocks'
     ],
 ];
