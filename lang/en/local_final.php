@@ -34,4 +34,4 @@ $string['course_image'] = 'Course Image';
 $string['course_name'] = 'Course Name';
 $string['date_created'] = 'Date Created';
 $string['actions'] = 'Actions';
-
+$string['course_visibility_updated'] = 'Course Visibility Updated';
