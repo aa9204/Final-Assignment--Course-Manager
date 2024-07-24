@@ -33,18 +33,16 @@
  */
 function xmldb_local_final_upgrade($oldversion) {
     global $DB;
-    $dbman = $DB->get_manager(); // Loads ddl manager and xmldb classes.
+    $dbman = $DB->get_manager();
 
-    if ($oldversion < 2024072301) {  // Updated version number for new changes
+    if ($oldversion < 2024072301) {
         $table = new xmldb_table('local_final_courses');
         $field = new xmldb_field('visible', XMLDB_TYPE_INTEGER, '2', null, XMLDB_NOTNULL, null, '1', 'image');
 
-        // Conditionally launch add field description.
         if (!$dbman->field_exists($table, $field)) {
             $dbman->add_field($table, $field);
         }
 
-        // Update the upgrade log.
         upgrade_plugin_savepoint(true, 2024072301, 'local', 'final');
     }
 

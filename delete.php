@@ -32,7 +32,7 @@ if (!has_capability('local/final:managecourses', $context)) {
     throw new moodle_exception('You cannot access this page');
 }
 
-// Check if the course ID is valid
+// Check if the course ID is valid.
 if ($id <= 0) {
     throw new moodle_exception('invalidcourseid', 'local_final');
 }

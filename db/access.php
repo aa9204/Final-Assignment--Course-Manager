@@ -44,6 +44,6 @@ $capabilities = [
         'archetypes' => [
             'manager' => CAP_ALLOW,
             'admin' => CAP_ALLOW,
-        ],    
+        ],
     ],
 ];
