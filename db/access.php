@@ -30,7 +30,7 @@ defined('MOODLE_INTERNAL') || die();
 $capabilities = [
     'local/final:viewcourses' => [
         'captype' => 'read',
-        'context level' => CONTEXT_SYSTEM,
+        'contextlevel' => CONTEXT_COURSE,
         'archetypes' => [
             'student' => CAP_ALLOW,
             'teacher' => CAP_ALLOW,
