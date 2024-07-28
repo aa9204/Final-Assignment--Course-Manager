@@ -3,8 +3,8 @@ Feature: Course visibility and management
   Background:
     Given the following "users" exist:
       | username | password | firstname | lastname | email           |
-      | admin    | Admin123!| Admin     | User     | admin@example.com |
-      | student  | Student123! | Student   | User     | student@example.com |
+      | admin    | N!kitai124| Admin     | User     | admin@example.com |
+      | su123    | ABCdef123* | Student   | User     | student@example.com |
     And the following "courses" exist:
       | fullname      | shortname | category |
       | Test Course 1 | TC1       | 1        |
@@ -14,7 +14,7 @@ Feature: Course visibility and management
       | student | Test Course 1 | student |
 
   Scenario: Admin can see all courses and manage them
-    Given I log in as "admin" with password "Admin123!"
+    Given I log in as "admin" with password "N!kitai124"
     When I navigate to "Home / Site administration / Courses / Manage courses and categories"
     Then I should see "Test Course 1"
     And I should see "Test Course 2"
@@ -36,11 +36,10 @@ Feature: Course visibility and management
     Then I should not see "Updated Course"
 
   Scenario: Student can only see enrolled courses
-    Given I log in as "student" with password "Student123!"
+    Given I log in as "su123" with password "ABCdef123*"
     When I navigate to "Home"
     Then I should see "Test Course 1"
     And I should not see "Test Course 2"
     And I should not see "Create course"
     And I should not see "Edit course settings"
     And I should not see "Delete"
-    

@@ -35,3 +35,5 @@ $string['course_name'] = 'Course Name';
 $string['date_created'] = 'Date Created';
 $string['actions'] = 'Actions';
 $string['course_visibility_updated'] = 'Course Visibility Updated';
+$string['local/final:managecourses'] = 'Manage courses on dashboard';
+$string['local/final:viewcourses'] = "View enrolled courses";
