@@ -31,7 +31,8 @@
  * @param int $oldversion
  * @return bool
  */
-function xmldb_local_final_upgrade($oldversion) {
+function xmldb_local_final_upgrade($oldversion)
+{
     global $DB;
     $dbman = $DB->get_manager();
 

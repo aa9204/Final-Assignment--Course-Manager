@@ -15,6 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace local_final;
+
 defined('MOODLE_INTERNAL') || die();
 
 /**
@@ -26,20 +27,24 @@ defined('MOODLE_INTERNAL') || die();
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
- use advanced_testcase;
-class local_final_view_test extends advanced_testcase {
+use advanced_testcase;
+
+class local_final_view_test extends advanced_testcase
+{
 
     /**
      * Set up before each test.
      */
-    protected function setUp(): void {
+    protected function setUp(): void
+    {
         $this->resetAfterTest(true);
     }
 
     /**
      * Test if admin can see all courses.
      */
-    public function test_admin_can_see_all_courses() {
+    public function test_admin_can_see_all_courses()
+    {
         global $DB;
 
 
@@ -64,21 +69,22 @@ class local_final_view_test extends advanced_testcase {
     /**
      * Test if student can see only enrolled courses.
      */
-    public function test_student_can_see_only_enrolled_courses() {
+    public function test_student_can_see_only_enrolled_courses()
+    {
         global $DB;
 
 
         $student = $this->getDataGenerator()->create_user(['username' => 'student']);
         $studentrole = $DB->get_record('role', ['shortname' => 'student']);
 
- 
+
         $course1 = $this->getDataGenerator()->create_course();
         $course2 = $this->getDataGenerator()->create_course();
 
         // Enroll student in course1.
         $this->getDataGenerator()->enrol_user($student->id, $course1->id, $studentrole->id);
 
- 
+
         $this->setUser($student);
 
         $output = $this->capture_view_output();
@@ -93,7 +99,8 @@ class local_final_view_test extends advanced_testcase {
      *
      * @return string The captured output.
      */
-    protected function capture_view_output() {
+    protected function capture_view_output()
+    {
         ob_start();
         include($CFG->dirroot . '/local/final/view.php');
         return ob_get_clean();

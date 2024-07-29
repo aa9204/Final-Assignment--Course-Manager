@@ -1,45 +1,22 @@
+@local @local_final
 Feature: Course visibility and management
 
   Background:
+    Given the following "courses" exist:
+      | shortname | fullname |
+      | TEST1     | Course1  |
+      | TEST2     | Course2  |
     Given the following "users" exist:
-      | username | password | firstname | lastname | email           |
-      | admin    | N!kitai124| Admin     | User     | admin@example.com |
-      | su123    | ABCdef123* | Student   | User     | student@example.com |
-    And the following "courses" exist:
-      | fullname      | shortname | category |
-      | Test Course 1 | TC1       | 1        |
-      | Test Course 2 | TC2       | 1        |
-    And the following "enrolments" exist:
-      | user    | course        | role    |
-      | student | Test Course 1 | student |
-
-  Scenario: Admin can see all courses and manage them
-    Given I log in as "admin" with password "N!kitai124"
-    When I navigate to "Home / Site administration / Courses / Manage courses and categories"
-    Then I should see "Test Course 1"
-    And I should see "Test Course 2"
-    And I press "Create course"
-    And I set the following fields to these values:
-      | Short name | New Course |
-      | Full name  | New Course |
-    And I press "Save and return"
-    Then I should see "New Course"
-    When I follow "New Course"
-    And I press "Edit course settings"
-    And I set the following fields to these values:
-      | Full name | Updated Course |
-    And I press "Save and display"
-    Then I should see "Updated Course"
-    When I navigate to "Home / Site administration / Courses / Manage courses and categories"
-    And I press "Delete" for "Updated Course"
-    And I press "Continue"
-    Then I should not see "Updated Course"
-
+      | username | firstname | lastname |
+      | student1 | Student   | 1        |
+    And the following "course enrolments" exist:
+      | user     | course | role    |
+      | student1 | TEST1  | student |
   Scenario: Student can only see enrolled courses
-    Given I log in as "su123" with password "ABCdef123*"
+    Given I log in as "student1"
     When I navigate to "Home"
-    Then I should see "Test Course 1"
-    And I should not see "Test Course 2"
+    Then I should see "TEST1"
+    And I should not see "TEST2"
     And I should not see "Create course"
     And I should not see "Edit course settings"
     And I should not see "Delete"

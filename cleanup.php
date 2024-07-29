@@ -22,13 +22,12 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
- require_once(__DIR__ . '/../../config.php');
+require_once(__DIR__ . '/../../config.php');
 
- global $DB;
- 
- // Delete courses where the visibility is set to 0
- $sql = "DELETE FROM {course} WHERE visible = 0";
- $DB->execute($sql);
- 
- echo "Non-visible courses cleaned up successfully.\n";
- ?>
+global $DB;
+
+// Delete courses where the visibility is set to 0
+$sql = "DELETE FROM {course} WHERE visible = 0";
+$DB->execute($sql);
+
+echo "Non-visible courses cleaned up successfully.\n";

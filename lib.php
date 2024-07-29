@@ -22,17 +22,18 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
- /**
-  * Insert a link to index.php on the site front page navigation menu.
-  *
-  * @param navigation_node $frontpage Node representing the front page in the navigation tree.
-  */
-function local_final_extend_navigation_frontpage(navigation_node $frontpage) {
+/**
+ * Insert a link to index.php on the site front page navigation menu.
+ *
+ * @param navigation_node $frontpage Node representing the front page in the navigation tree.
+ */
+function local_final_extend_navigation_frontpage(navigation_node $frontpage)
+{
     if (!isguestuser()) {
         $frontpage->add(
-        get_string('pluginname', 'local_final'),
-        new moodle_url('/local/final/view.php'),
-        navigation_node::TYPE_CUSTOM,
+            get_string('pluginname', 'local_final'),
+            new moodle_url('/local/final/view.php'),
+            navigation_node::TYPE_CUSTOM,
         );
     }
 }
