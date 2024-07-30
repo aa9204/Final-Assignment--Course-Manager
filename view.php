@@ -149,3 +149,4 @@ foreach ($courses as $course) {
 }
 echo html_writer::end_tag('tbody');
 echo $OUTPUT->footer();
+
